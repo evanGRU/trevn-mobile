@@ -165,7 +165,6 @@ export default function AuthScreen() {
                     <ScrollView
                         contentContainerStyle={{
                             flexGrow: 1,
-                            minHeight: '100%',
                             justifyContent: 'flex-end',
                         }}
                         keyboardShouldPersistTaps="handled"

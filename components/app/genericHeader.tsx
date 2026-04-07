@@ -19,11 +19,12 @@ export default function GenericHeader({genericButtonArray} : GenericHeaderProps)
             alignItems: "center",
             justifyContent: "space-between",
             flexDirection: "row",
-            paddingHorizontal: spacing[12]
+            paddingHorizontal: spacing[12],
+            marginBottom: spacing[8],
         }}>
             <Icons.Logo height={32} width={54}/>
 
-            <View style={{flexDirection: "row"}}>
+            <View style={{flexDirection: "row", gap: spacing[4]}}>
                 {genericButtonArray.map(buttonDetails => (
                     <GenericHeaderButton buttonDetails={buttonDetails} key={`${buttonDetails.content}-button`}/>
                 ))}
