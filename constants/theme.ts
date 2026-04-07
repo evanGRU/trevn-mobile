@@ -42,6 +42,8 @@ export const Colors = {
     surface: '#181818',
     backgroundSecondary: '#282828',
     backgroundBorder: '#202020',
+    backgroundDark: '#121212',
+    backgroundDarker: '#101010',
     text: '#f5f5f5',
     textSecondary: '#B3B3B3',
     textGray: '#666666',

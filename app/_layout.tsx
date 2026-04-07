@@ -34,8 +34,9 @@ function RootLayout() {
 
     /* Secure Routes */
     const inAuthGroup = segments[0] === '(tabs)';
-    if (!session && inAuthGroup) return <Redirect href="/login" />
-    if (session && !inAuthGroup) return <Redirect href="/" />;
+    const inModal = segments[0] === '(modals)';
+    if (!session && inAuthGroup && !inModal) return <Redirect href="/login" />;
+    if (session && !inAuthGroup && !inModal) return <Redirect href="/" />;
 
     return (
         <>
@@ -43,9 +44,12 @@ function RootLayout() {
 
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="login" />
-
                 <Stack.Screen
                     name="(modals)/forgot-password"
+                    options={{ presentation: 'modal' }}
+                />
+                <Stack.Screen
+                    name="(modals)/new-group"
                     options={{ presentation: 'modal' }}
                 />
             </Stack>

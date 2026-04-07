@@ -1,35 +1,32 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import {Tabs} from 'expo-router';
+import React, {useEffect, useState} from "react";
+import {getUser} from "@/api/user";
+import {User} from "@/utils/types";
+import {CustomTabBar} from "@/components/app/customTabBar";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+export default function TabsLayout() {
+    const [user, setUser] = useState<User>(null);
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+    useEffect(() => {
+        const load = async () => {
+            try {
+                const user = await getUser();
+                setUser(user);
+            } catch (err) {
+                // @ts-ignore
+                throw(err.message);
+            }
+        };
+        load();
+    }, []);
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+    return (
+        <Tabs
+            screenOptions={{ headerShown: false }}
+            tabBar={(props) => <CustomTabBar {...props} user={user} />}
+        >
+            <Tabs.Screen name="index" options={{ title: "Groupes" }} />
+            <Tabs.Screen name="userSettingsScreen" options={{ title: "Toi" }} />
+        </Tabs>
+    );
 }
